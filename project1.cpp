@@ -59,5 +59,11 @@ int Store(int A[], int Size, ifstream& infile) //function to store values in arr
   int counter = 0;
   while(counter < size && infile >> A[counter])
     {counter++;}
-  return counter; 
+  return counter;
+}
+
+void display(int A[], int low, int high, ostream& outfile) //function to print contents of an array
+{
+  for(int i = low, i <= high, i++)
+  {outfile << A[i] <<endl;}
 }
