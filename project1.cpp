@@ -18,7 +18,7 @@ in that array */
 
 //function declarations:
 
- void OpenInputFile(ifstream& infile)
+ void OpenInputFile(ifstream& in_f)
  //Opens for input a file named from the terminal
  //Postcondition: A file stream has been opened for input
  int Store(int A[], int aSize,)
@@ -36,3 +36,20 @@ void display(int A[], int low, int high, ostream& outfile)
 //displays contents of an array
 //Precondition: low and high are positive integers with low < high
 //Postcondition: Contents of A[] were printed to selected output
+
+
+int main()
+{
+  ifstream infile;  //The input file fstream
+}
+
+void OpenInputFile(ifstream& in_f)    //function to open a OpenInputFile
+{
+  string input_filename;              //filename to be opened stored as string
+  do {                                //do while to ensure file opens
+    in_f.clear();
+    cout <<"Please enter an input file name: \n";
+    cin >> input_filename;
+    in_f.open(input_filename.c_str());/* code */
+  } while(in_f.fail() );
+}
