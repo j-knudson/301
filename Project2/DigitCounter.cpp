@@ -1,9 +1,3 @@
-/*
-	John Knudson
-	CSCI 301 - Julstrom
-	Project 2 - File 1 - Number of digits in an integer
-*/
-
 //This program uses a recursive function to determine the number of digits in a given positive integer
 
 
