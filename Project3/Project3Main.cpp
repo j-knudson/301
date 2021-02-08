@@ -1,9 +1,3 @@
-/*	John Knudson
-	CSCI 301
-	Project 3 - Implementing an ordered list class with a linked list
-	Main File
-*/
-
 //This is the main file to test our ordered list class
 //it consists of a menu function used to test the features of our linked list class
 
