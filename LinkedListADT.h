@@ -1,10 +1,3 @@
-/* 
-	John Knudson
-	CSCI 301- Julstrom
-	Project 3 - Creating a Linked List
-*/
-
-
 //This is the Header File for an ADT ordered linked list currently using an int
 
 //file LinkedListADT.h
