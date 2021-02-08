@@ -1,9 +1,3 @@
-/*
-	John Knudson
-	CSCI 301 - Julstrom
-	Project 3 - ADT Linked List
-*/
-
 //File LinkedListADT.cxx
 //This is the implementation file for the LinkedListADT
 //See LinkedListADT.h for documentation 
