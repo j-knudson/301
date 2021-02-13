@@ -14,7 +14,7 @@
 */
 #include <iostream>
 
-int DigitPrinter(int num);
+void DigitPrinter(int num);
 int main()
 {
 
@@ -26,14 +26,16 @@ int main()
   return 0;
 }
 
-int DigitPrinter(int num)
+void DigitPrinter(int num)
 {
   if (num < 10)
+  {
     std::cout << num << '\n';
+  }
   else
   {
-      std::cout << num%10 << '\n';
-      return DigitPrinter(num/10);
+    DigitPrinter(num/10);
+    std::cout << num%10 << '\n';
   }
 
 }
