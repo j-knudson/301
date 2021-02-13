@@ -27,13 +27,12 @@ int main()
 
 void pattern(int NumStars)
 {
-  if (NumStars == 1)
-    std::cout << '*' << '\n';
-  else
+  if (NumStars > 0)
+  {
     pattern(NumStars-1);
     asterisks(NumStars);
     std::cout << '\n';
-
+  }
 }
 
 void asterisks(int k)
