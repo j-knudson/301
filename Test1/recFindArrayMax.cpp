@@ -17,8 +17,8 @@ int max(int A[], int low, int high);
 
 int main()
 {
-  int sampleArray[5] = {1, 4, 10, 3, 2};
-  int arrayMax = max(sampleArray, 0, 5)
+  int sampleArray[5] = {1, 4, 10, 30, 2};
+  int arrayMax = max(sampleArray, 0, 4);
   std::cout << "The max value in the array is " << arrayMax << '\n';
   return 0;
 }
@@ -30,7 +30,7 @@ int max(int A[], int low, int high)
     return A[low];
   else
   {
-    tailMax = max(a, low+1, high)
+    tailMax = max(A, low+1, high);
     if (A[low] > tailMax)
       return A[low];
     else
