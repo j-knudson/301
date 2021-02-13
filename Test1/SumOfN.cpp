@@ -27,13 +27,6 @@ int main()
 int SumOfN(int num)
 {
   //static int total;
-  if (num < 1)
-    return num;
-  else
-  {
-    //total += num;
+  if (num > 1)
     return SumOfN(num-1)+num;
-  }
-  //return total;
-
 }
