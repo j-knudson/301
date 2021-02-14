@@ -1,6 +1,6 @@
 /*
 	Recursion Practice
-  Generate a triangle of n *'s recursively
+  Solve the Tower's of Hanoi puzzle with recursion
 */
 
 /*
