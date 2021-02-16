@@ -87,3 +87,25 @@ void LinkedList::insert(Item entry)
 		}
 	}
 }
+	
+//overload istream
+	
+std::istream LinkedList::operator >>(std::istream&, istream& infile)
+{
+  Item entry;
+  Node* last; 
+
+  makeEmpty();  //clear the file in case something in it 
+
+  infile >> entry; 
+  first = GetNode(entry, NULL)
+  last = first; 
+  infile >> entry; 
+  while(!infile.eof())
+  {
+    last->next=GetNode(entry,NULL);
+    last=last->next;
+    inifle >> entry; 
+  }
+  return infile; 
+}
