@@ -1,3 +1,8 @@
+/*
+	John Knudson
+	CSCI 301 - Julstrom
+	Project 5 - Create a Stack ADT to process Palindromes 
+*/
 
 //This is the main file for Project 5 
 
@@ -14,40 +19,38 @@ int main()
 
 	char ch; //variable to hold one letter of user string 
 	Stack InputStack; //create first stack which holds all the values from the user string  
-	std::cin.get(ch);		
+	std::cin.get(ch);	//read inputs one character at a time	
 
-	while (ch >= ' ')
+	while (ch >= ' ')		//as long as there is a character to read  
 	{
-		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
-			InputStack.push(ch); 
-		std::cin.get(ch);
+		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))  //make sure user character falls within alpha character range  
+			InputStack.push(ch);									//add all letters to the Input stack
+		std::cin.get(ch);										//get the next character from the user string 
 	}
 
 	size_t userStringSize = InputStack.size(); //Calculate the length of the users string
 	Stack PalindromeCheck; //Make the second stack to receive half the characters of the user's string 
 	
-	while (PalindromeCheck.size() < userStringSize/2)
+	while (PalindromeCheck.size() < userStringSize/2)  // Remove the second half of the characters from the first stack and put them into the second stack 
 	{
-		ch = InputStack.pop(); 
-		PalindromeCheck.push(ch);
+		ch = InputStack.pop();						//removes the character from the first stack
+		PalindromeCheck.push(ch);					//adds that character to the second stack
 	}
 
-	if (!InputStack.empty())
-		InputStack.pop(); 
+	if (!InputStack.empty())			// in case the stack had an odd number of characters and there is one character left 
+		InputStack.pop();				//removes that character and empties the first stack 
 
-	bool isPalindrome = true; 
+	bool isPalindrome = true;			//create a bool flag used to see if the two stacks  match
 	
-	while (!InputStack.empty() && !PalindromeCheck.empty())
+	while (!InputStack.empty() && !PalindromeCheck.empty() && isPalindrome)	//Compare the characters in the two stacks until they are empty or a mismatch is found 
 	{
-		//std::cout << "Stack one value: " << InputStack.pop() << std::endl;
-		//std::cout << "Stack two value: " << PalindromeCheck.pop() << std::endl;
-		ch = InputStack.pop(); 
-		char ChComparison = PalindromeCheck.pop(); 
-		if (ch != ChComparison)
+		ch = InputStack.pop();								//get the top character from the initial stack 
+		char ChComparison = PalindromeCheck.pop();			//get the top character from the second stack 
+		if (ch != ChComparison)								//compare them to see if they match
 			isPalindrome = false; 
 	}
 
-	if (isPalindrome)
+	if (isPalindrome)										//report if they match to terminal 
 		std::cout << "The string IS a palindrome\n"; 
 	else
 		std::cout << "The string IS NOT a palindrome \n";
