@@ -25,17 +25,16 @@ int main()
 	size_t userStringSize = InputStack.size(); //Calculate the length of the users string
 	Stack PalindromeCheck; //Make the second stack to receive half the characters of the user's string 
 	
-	while (PalindromeCheck.size() < userStringSize/2)  // Remove the second half of the characters from the first stack and put them into the second stack 
+	while (PalindromeCheck.size() < userStringSize/2)  // Remove the second half of the characters from the first stack and put them into the second stack working down to the midpoint
 	{
-		ch = InputStack.pop();						//removes the character from the first stack
-		PalindromeCheck.push(ch);					//adds that character to the second stack
+		ch = InputStack.pop();						//removes the top character from the first stack
+		PalindromeCheck.push(ch);					//adds that character to the second stack starting at the bottom and then adding on top of it 
 	}
 
 	if (!InputStack.empty())			// in case the stack had an odd number of characters and there is one character left 
 		InputStack.pop();				//removes that character and empties the first stack 
 
-	bool isPalindrome = true;			//create a bool flag used to see if the two stacks  match
-	
+	bool isPalindrome = true;			//create a bool flag used to see if the two stacks match
 	while (!InputStack.empty() && !PalindromeCheck.empty() && isPalindrome)	//Compare the characters in the two stacks until they are empty or a mismatch is found 
 	{
 		ch = InputStack.pop();								//get the top character from the initial stack 
@@ -44,10 +43,9 @@ int main()
 			isPalindrome = false; 
 	}
 
-	if (isPalindrome)										//report if they match to terminal 
+	if (isPalindrome)										//report to terminal if the user's string was a palindrome 
 		std::cout << "The string IS a palindrome\n"; 
 	else
 		std::cout << "The string IS NOT a palindrome \n";
 
 	return EXIT_SUCCESS;
-}
