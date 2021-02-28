@@ -1,9 +1,3 @@
-/*
-	John Knudson
-	CSCI 301 - Julstrom
-	Project 5 - Create a Stack ADT to process Palindromes 
-*/
-
 //This is the main file for Project 5 
 
 //This program uses the StackADT to create two stacks and test whether a user entered string is or is not a palindrome
