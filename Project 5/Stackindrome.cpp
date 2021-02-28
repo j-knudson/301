@@ -12,7 +12,7 @@ int main()
 {
 	std::cout << "Please enter a string with no more than 100 characters, and I will let you know if the string is a palindrome\n"; // prompt user for a string
 
-	char ch; //varialbe to hold one letter of user string 
+	char ch; //variable to hold one letter of user string 
 	Stack InputStack; //create first stack which holds all the values from the user string  
 	std::cin.get(ch);		
 
