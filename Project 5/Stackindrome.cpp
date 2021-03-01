@@ -23,7 +23,7 @@ int main()
 			ch = toupper(ch);										//convert ch to an uppercase letter
 			InputStack.push(ch);									//add all letters to the Input stack as an uppercase letter
 		}
-		else if (ch >= 'A' && ch <= 'Z')
+		else if (ch >= 'A' && ch <= 'Z')						//if ch was already uppercase and a letter add it to the stack
 			InputStack.push(ch);
 		
 		std::cin.get(ch);										//get the next character from the user string 
@@ -38,7 +38,7 @@ int main()
 		PalindromeCheck.push(ch);					//adds that character to the second stack starting at the bottom and then adding on top of it 
 	}
 
-	if (!InputStack.empty())			// in case the stack had an odd number of characters and there is one character left 
+	if (userStringSize%2 !=0)			// in case the stack had an odd number of characters and there is one character left 
 		InputStack.pop();				//removes that character and empties the first stack 
 
 	bool isPalindrome = true;			//create a bool flag used to see if the two stacks match
