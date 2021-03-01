@@ -9,7 +9,8 @@
 
 int main()
 {
-	std::cout << "Please enter a string with no more than 42 characters, and I will let you know if the letters of the string are a palindrome\n"; // prompt user for a string
+	std::cout << "Please enter a string with no more than 42 characters, \n";
+	std::cout<< "and I will let you know if the letters of the string are a palindrome\n"; // prompt user for a string
 
 	char ch; //variable to hold one letter of user string 
 	Stack InputStack; //create first stack which holds all the values from the user string  
@@ -17,8 +18,14 @@ int main()
 
 	while (ch >= ' ')		//as long as there is a character to read  
 	{
-		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))  //make sure user character falls within alpha character range  
-			InputStack.push(ch);									//add all letters to the Input stack
+		if (ch >= 'a' && ch <= 'z')   //make sure user character falls within alpha character range  
+		{
+			ch = toupper(ch);										//convert ch to an uppercase letter
+			InputStack.push(ch);									//add all letters to the Input stack as an uppercase letter
+		}
+		else if (ch >= 'A' && ch <= 'Z')
+			InputStack.push(ch);
+		
 		std::cin.get(ch);										//get the next character from the user string 
 	}
 
