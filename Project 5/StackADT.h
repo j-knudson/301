@@ -16,7 +16,7 @@ class Stack
        
                                     
         //member constant
-        static const int CAPACITY = 100;        //Max size for stack array; currently 100 
+        static const int CAPACITY = 42;        //Max size for stack array; currently 42 
 
         //constructor
         Stack() {used = 0; }           //INLINE: Starts an empty stack where used is 0 
