@@ -6,11 +6,11 @@
 
 #include <iostream>
 #include <cstdlib>	//for size_t and rand()
-#include <iomanip>  //for set w
+#include <iomanip>  //for setw
 #include "QueueADT.h"
 
 //function declarations 
-int shortestLine(Queue A[], int size);		//this function finds the Queue in the array with the fewest number of elements
+int shortestLine(Queue A[],int B[], int size, int time);		//this function finds the Queue in the array with the fewest number of elements * avg time + currentTime remaining
 size_t totalQueue(Queue A[], int size);		//this function calculates and returns the total of the sizes of all Queues within the Queue array
 
 int main()
@@ -35,7 +35,7 @@ int main()
 	std::cout << "Please enter a random number seed: \n ";
 	int seed; 
 	std::cin >> seed; 
-	
+
 	Queue* qArray = new Queue[userPairs];		//dynamically create an array of queues with size based on user input 
 	int* servers = new int[userPairs] {};			//dyanmic array for number of servers to pair at 1:1 ratio with number of queues; intialize all values to zero signifying an open server		
 	//Queue line; 
@@ -48,7 +48,7 @@ int main()
 	{
 		if (rand() % 100 < arvProb)	//use random number to determine if we add a person to the line 
 		{
-			int lineIndex = shortestLine(qArray, userPairs);	//call shortest line function to find the shortest line  
+			int lineIndex = shortestLine(qArray, servers, userPairs, maxTransTime);	//call shortest line function to find the shortest line  
 			qArray[lineIndex].enqueue(time);					//assign the new person to that line's queue
 		}
 		for (int i = 0; i < userPairs; i++)		//create a loop to move through queue/server pairs 
@@ -81,16 +81,15 @@ int main()
 	return EXIT_SUCCESS;
 }
 
-int shortestLine(Queue A[], int size)
+int shortestLine(Queue queArr[], int servArr[], int size, int time)
 {
-	
-	Queue shortest = A[0]; 
-	int shortestIndex = 0;
-	for (int i = 0; i < size; ++i)
+	Queue shortest = queArr[0];					//set current shortest line to the first queue
+	int shortestIndex = 0;					//set current shortest index to first queue 
+	for (int i = 0; i < size; ++i)			//loop to move through elements of queArr allowing us to find the smallest queue 
 	{
-		if (A[i].size() < shortest.size())
+		if ((queArr[i].size()*(time/2) + servArr[i]) < (shortest.size()*(time/2)+servArr[shortestIndex]))  //[number of people in queue * (maxTime/2) + time left on person checking out]  vs current smallest [queue * avgTime + current time left]
 		{
-			shortest = A[i];
+			shortest = queArr[i];
 			shortestIndex = i;
 		}
 	}
