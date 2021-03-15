@@ -10,9 +10,8 @@
 #include "QueueADT.h"
 
 //function declarations 
-
-Queue shortestLine(); 
-
+int shortestLine(Queue A[], int size);		//this function finds the Queue in the array with the fewest number of elements
+size_t totalQueue(Queue A[], int size);		//this function calculates and returns the total of the sizes of all Queues within the Queue array
 
 int main()
 {
@@ -37,36 +36,73 @@ int main()
 	int seed; 
 	std::cin >> seed; 
 	
-	//Queue qArray[userPairs]; 
-	Queue line; 
+	Queue* qArray = new Queue[userPairs];		//dynamically create an array of queues with size based on user input 
+	int* servers = new int[userPairs] {};			//dyanmic array for number of servers to pair at 1:1 ratio with number of queues; intialize all values to zero signifying an open server		
+	//Queue line; 
 	int custServedCount = 0;		//number of customers served
 	int waitSum = 0;	//sum of waiting times
-	int transTime = 0;	//time it takes for a transaction
 	int entryTime;		//when each served customer arrived
 	srand(seed);		//for use with rand function  
 
-	for (int time = 0; time < simDuration; ++time)
+	for (int time = 0; time < simDuration; ++time)		//create a loop starting at time 0 and ending at user entered simDuration 
 	{
 		if (rand() % 100 < arvProb)	//use random number to determine if we add a person to the line 
-			line.enqueue(time);
-		if (transTime == 0)			//check if the transaction is complete
 		{
-			if (!line.isEmpty())	//if there are more people in queue
-			{
-				entryTime = line.dequeue(); //get the time from when the person went into the queue 
-				waitSum += (time - entryTime); //subtract entry time from current time to calculate how long person waited in line 
-				++custServedCount;						//Increment count of customers served	
-				transTime = (rand() % maxTransTime) + 1; //create a random transaction time  
-			}
+			int lineIndex = shortestLine(qArray, userPairs);	//call shortest line function to find the shortest line  
+			qArray[lineIndex].enqueue(time);					//assign the new person to that line's queue
 		}
-		else				//transaction is still being completed
-			--transTime;	//decrement transTime to mimic customer being helped in line 
-		std::cout << std::setw(6) << " CT:" << time << std::setw(6) << "||TT:"<< transTime;
-		std::cout<< "||RL:" << line << std::endl;  //print details to terminal
+		for (int i = 0; i < userPairs; i++)		//create a loop to move through queue/server pairs 
+		{
+			if (servers[i] == 0)			//check if the transaction for the current server is complete and server free
+			{
+				if (!qArray[i].isEmpty())	//if there are more people in queue
+				{
+					entryTime = qArray[i].dequeue(); //get the time from when the person went into the queue (value of element at i corresponds to time when i added to that queue)
+					waitSum += (time - entryTime); //subtract entry time from current time to calculate how long person waited in line 
+					++custServedCount;						//Increment count of customers served	
+					servers[i] = (rand() % maxTransTime) + 1; //create a random transaction time  
+				}
+			}
+			else				//transaction is still being completed
+				--servers[i];	//decrement current element in severs to mimic that customer being helped in line 
+			
+			//print details to terminal
+			std::cout << std::setw(4) <<"Server:"<< i+1 << std::setw(6) << " CT:" << time << std::setw(6) << "||TT:" << servers[i];			//CT == Current time   TT== Transaction Time  RL == Remaning Customers in line 
+			std::cout << std::setw(7) << "||RL:" << qArray[i] << std::endl;  //prints elements of queue at qArray[i] 
+		}
 	}
 	std::cout << custServedCount << " customers waited an average of "; 
 	std::cout << waitSum / custServedCount << " ticks." << std::endl; 
-	std::cout << line.size() << " customers remain in the line." << std::endl; 
+	size_t remainLine = totalQueue(qArray, userPairs);
+	std::cout << remainLine << " customers remain in the line." << std::endl; 
+	
+	delete[] qArray;		//remove qArray from heap
+	delete[] servers;		//remove servers from heap 
 	return EXIT_SUCCESS;
 }
 
+int shortestLine(Queue A[], int size)
+{
+	
+	Queue shortest = A[0]; 
+	int shortestIndex = 0;
+	for (int i = 0; i < size; ++i)
+	{
+		if (A[i].size() < shortest.size())
+		{
+			shortest = A[i];
+			shortestIndex = i;
+		}
+	}
+	return shortestIndex; 
+}
+
+size_t totalQueue(Queue A[], int size)
+{
+	size_t total = 0;
+	for (int i = 0; i < size; ++i)
+	{
+		total += A[i].size();
+	}
+	return total; 
+}
