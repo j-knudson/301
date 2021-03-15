@@ -53,7 +53,7 @@ int main()
 		{
 			if (!line.isEmpty())	//if there are more people in queue
 			{
-				entryTime = line.dequeue(); //get the time from the person first when into the queue 
+				entryTime = line.dequeue(); //get the time from when the person went into the queue 
 				waitSum += (time - entryTime); //subtract entry time from current time to calculate how long person waited in line 
 				++custServedCount;						//Increment count of customers served	
 				transTime = (rand() % maxTransTime) + 1; //create a random transaction time  
@@ -61,7 +61,8 @@ int main()
 		}
 		else				//transaction is still being completed
 			--transTime;	//decrement transTime to mimic customer being helped in line 
-		std::cout << std::setw(4) << time << std::setw(4) << transTime << " " << line << std::endl;  //print details to terminal
+		std::cout << std::setw(6) << " CT:" << time << std::setw(6) << "||TT:"<< transTime;
+		std::cout<< "||RL:" << line << std::endl;  //print details to terminal
 	}
 	std::cout << custServedCount << " customers waited an average of "; 
 	std::cout << waitSum / custServedCount << " ticks." << std::endl; 
