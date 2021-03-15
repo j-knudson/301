@@ -7,6 +7,7 @@
 #define QUEUE
 
 #include <iostream>
+#include <cstdlib> //for size_t
 
 
 class Queue
@@ -35,7 +36,7 @@ public:
 	//Postcondition: returns state of items in queue; empty queue is TRUE or queue with items is FALSE 
 
 	//FRIEND FUNCTION
-	std::ostream& operator <<(std::ostream& out_s, Queue q); 
+	friend std::ostream& operator <<(std::ostream& out_s, Queue q); 
 
 private:
 
@@ -46,7 +47,8 @@ private:
 	std::size_t count;		//Current length of the queue
 
 	//PRIVATE MEMBER FUNCTION
-	std::size_t NextIndex(std::size_t i) const {return (i + 1) % CAPACITY}; //this function allows elements of the array to be reused treating it like a sequential circle
+	std::size_t NextIndex(std::size_t i) const { return (i + 1) % CAPACITY; } //this function allows elements of the array to be reused treating it like a sequential circle
 	//Precondition: 0 <= i <= CAPACITY 
 	//Postcondition: Returns the value of the next element in the queue 
 };
+#endif
