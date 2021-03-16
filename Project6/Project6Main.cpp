@@ -1,9 +1,3 @@
-/*
-	John Knudson 
-	CSCI 301 - Julstrom 
-	Project 6 -- Queuing Simulation with a Queue ADT 
-*/
-
 #include <iostream>
 #include <cstdlib>	//for size_t and rand()
 #include <iomanip>  //for setw
@@ -88,7 +82,7 @@ int shortestLine(Queue queArr[], int servArr[], int size, int time)
 	for (int i = 0; i < size; ++i)			//loop to move through elements of queArr allowing us to find the smallest queue 
 	{
 		if ((queArr[i].size()*(time/2) + servArr[i]) < (shortest.size()*(time/2)+servArr[shortestIndex]))  //[number of people in queue * (maxTime/2) + time left on person checking out]  vs current smallest [queue * avgTime + current time left]
-		{
+		{																	// is equivalent to QueueSize * ~ Avg Transaction Time + Time left on Transaction 
 			shortest = queArr[i];
 			shortestIndex = i;
 		}
