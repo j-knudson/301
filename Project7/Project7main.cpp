@@ -7,6 +7,8 @@
 
 //function declarations
 void arrayMaker(int A[], int B[], int C[], int size, int seed, bool print);
+int insertionSort(int A[], int size);
+void printArray(int A[], int size);
 
 int main()
 {
@@ -26,11 +28,16 @@ int main()
 		displayValues = true;				//TRUE = print values to terminal
 	
 
-	int* array1 = new int[userArrSize];			//dynamically create an array of size corresponding to user input 
-	int* array2 = new int[userArrSize];
-	int* array3 = new int[userArrSize];
-	arrayMaker(array1, array2, array3, userArrSize, userSeed, displayValues); 
+	int* array1 = new int[userArrSize];			//dynamically create an array of size corresponding to user input; array 1 used for inertionSort 
+	int* array2 = new int[userArrSize];			//create a second array for Merge Sort
+	int* array3 = new int[userArrSize];			//create a third array for Quick Sort
+	
+	arrayMaker(array1, array2, array3, userArrSize, userSeed, displayValues); //call function to make three identical arrays of random values 
 
+	int count = insertionSort(array1, userArrSize);							//create a variable to hold the efficiency number for array sorting and try Insertion Sort
+
+	std::cout <<std::endl <<  "Insertion Sort count = " << count << std::endl;
+	printArray(array1, userArrSize);
 
 	return EXIT_SUCCESS; 
 }
@@ -48,5 +55,31 @@ void arrayMaker(int A[], int B[], int C[], int size, int seed, bool print)
 		{
 			std::cout << A[i] << ' ';
 		}
+	}
+}
+
+int insertionSort(int A[], int size)		
+{
+	int count = 0; 
+	for (int i = 1; i < size; ++i)			//create a loop startign at 1 and moving upward through all elements in the array
+	{
+		++count; 
+		int j = i;							//create a new placeholder to move down elements in the array
+		while (j > 0 && A[j] < A[j - 1])	//if there are still elements for placeholder to move down; if element value is less than neighbor (element minus 1 or leftward element) value and if so exchange values
+		{
+			++count;
+			std::swap(A[j], A[j - 1]);  //if elements need to be exchanged, flip them
+			--j;							//move placeholder down a spot and check again
+			
+		}
+	}
+	return count; 
+}
+
+void printArray(int A[], int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		std::cout << A[i] << ' ';
 	}
 }
