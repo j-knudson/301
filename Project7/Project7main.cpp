@@ -56,7 +56,7 @@ int main()
 	quickSort(array3, 0, userArrSize - 1, comparisons);		//call quickSort
 	std::cout << "Quick Sort count = " << comparisons << std::endl; //display results
 
-	printArray(array3, userArrSize);
+	//printArray(array3, userArrSize);
 
 	delete[] array1;
 	delete[] array2;
@@ -70,7 +70,7 @@ void arrayMaker(int A[], int B[], int C[], int size, int seed, bool print)
 	srand(seed);							//for use with rand function
 	for (int i = 0; i < size; ++i)
 	{
-		A[i] = rand(); 
+		A[i] = rand() % 9999;				//fill array with values having a max of 4 digits
 		B[i] = A[i];
 		C[i] = A[i];
 		if (print)							//Check if the values should be displayed 
@@ -207,6 +207,7 @@ void partition(int A[], int low, int high, int pivot, int& i, int& j, int &count
 			++counter;			//increment comparisons counter
 		}
 	}
-	i = lastSmallerS;	//set the 
-	j = firstLargerS; 
+	i = lastSmallerS;	//sets the end point of the smaller segment for recursive call (will be high/end point of the smaller partition)
+	j = firstLargerS;	//sets the start point of the larger segment for recursive call (is low of the larger partition)
+	
 }
