@@ -9,13 +9,29 @@
 const int MAX = 5000;	//used by merge function to create local array; this variable corresponds to userArrSize and maximum value in range prompted
 
 //function declarations
-void arrayMaker(int A[], int B[], int C[], int size, int seed, bool print);
-int insertionSort(int A[], int size);
-void printArray(int A[], int size);
-void mergeSort(int A[], int low, int high, int &counter);
-void merge(int A[], int low, int mid, int high, int &counter);
-void quickSort(int A[], int low, int high, int &counter);
-void partition(int A[], int low, int high, int pivot, int& i, int& j, int &counter);
+void arrayMaker(int A[], int B[], int C[], int size, int seed, bool print);	//fills arrays with random values and if selected prints those values to terminal
+//Precondition: A,B,C are arrays of equal size; size is a non-negative integer corresponding to size of A,B,C; print is set to TRUE for displaying values to terminal or False to not display
+//Postcondition: Arrays A,B,C were filled with the same random values, and if print == True those values were printed to the terminal 
+void printArray(int A[], int size);	//prints the values in an array to the terminal
+//Postcondition: contents of the array were printed to the terminal
+
+int insertionSort(int A[], int size);	//uses insertion sort algorithm to sort array and returns comparisons made
+//Precondition: size is non-negative value corresponding to number of elements in A
+//Postcondition: A was sorted in ascending order and the number of comparisions made to complete the sort is returned
+
+void mergeSort(int A[], int low, int high, int &counter); //recursive function that uses merge to to sort an algorithm in ascending order; updates counter to track comparisons used in sorting
+//Precondition: Counter is initialized to 0 when called from main; low/high are non-negative values; high is elements in array-1
+//Postcondition: A was sorted in ascending order and counter updated to number of comparisons needed to sort the array 
+void merge(int A[], int low, int mid, int high, int &counter);//used by mergeSort to recombine arrays in ascending order
+//Precondition: A MAX constant for maximum size of A[] was set; A is composed of integer values; mid is non-negative value for middle element of array 
+//Postcondition: A was sorted in ascending order between elements low and high; counter updated to track number of comparisons made in sorting 
+
+void quickSort(int A[], int low, int high, int &counter); //recursive function that uses partition to sort an algorithm in ascending order; updates counter to track comparisons used in sorting
+//Precondition: Counter is initialized to zero before called from main; A is filled with integer values; 
+//Postcondition: A is sorted in ascending order and counter updated to track comparisons made 
+void partition(int A[], int low, int high, int pivot, int& i, int& j, int &counter); //used by quickSort to create segments around a pivot value that is moved into order
+//Postcondition: Pivot  moved into correct position in array; i and j updated to end/start points of smaller than pivot and larger than pivot segments
+
 
 int main()
 {
@@ -121,7 +137,7 @@ void mergeSort(int A[], int low, int high, int &counter)
 void merge(int A[], int low, int mid, int high, int &counter)
 {
 	//int* b = new int[high];		//create a local copy of the array
-	int b[MAX];										//create local copy of array; max is global and currently set to 5k 
+	int b[MAX];										//create local copy of array; max is global and currently set to 5000
 	int lowerIndex, upperIndex, mergeIndex;			//indexing variables
 
 	for (int i = low; i <= high; ++i)	//set up a loop to fill our local copy with the values from the passed in array
