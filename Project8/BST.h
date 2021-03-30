@@ -30,7 +30,7 @@ public:
 
 
 	//modification member function
-	void makeEmpty() { destroy(root); }	//convert an existing list into an empty list 
+	void makeEmpty() { destroy(root); root = NULL; }	//convert an existing list into an empty list 
 	void insert(Item entry);		//add entry to the list if it is not already present 
 	void Remove(Item target) { helpRemove(root, target); }	//call paired recursive function to remove specified value target
 
