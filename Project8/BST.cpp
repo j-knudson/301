@@ -48,6 +48,9 @@ bool bst::present(Item target)
 }*/
 void bst::insert(Item entry)		//iterative version of insert
 {
+	if (present(entry))
+		return; 
+	
 	Node* ptr = root;	//traveling pointer to find value	
 	Node* back = NULL; //traveling ptr to move and hold location one spot behind ptr
 	Node* temp;
@@ -75,7 +78,11 @@ void bst::insert(Item entry)		//iterative version of insert
 		back->right = temp;			//temp is now a leaf on the right branch 
 }
 
-
+void bst::Remove(Item target)
+{
+	if (present(target))
+		helpRemove(root, target);
+}
 
 
 void bst::helpRemove(Node*& root, Item target)	//second of three functions needed to remove a node (find the node)

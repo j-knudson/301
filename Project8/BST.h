@@ -46,7 +46,7 @@ public:
 	void insert(Item entry);		//add entry to the list if it is not already present 
 	//Precondition: Entry is not a value currently in the list 
 	//Postcondition: Entry was added to an appropriate location in the tree
-	void Remove(Item target) { helpRemove(root, target); }	//call paired recursive function to remove specified value target
+	void Remove(Item target);	//call paired recursive function to remove specified value target
 	//Precondition: Target is a value in the list 
 	//Postcondition: A node with the value target was removed from the tree, and its binary properties were restored
 
