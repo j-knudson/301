@@ -8,6 +8,12 @@
 #include "BST.h"
 
 
+//Invariant for the Binary Search Tree
+/*
+	1.) The Items in the tree are stored in a linked Binary tree; Smaller values than a node are in a branch to its left and values larger in a branch to its right
+	2.) The member variable root stores the first node, and if the tree is empty root is NULL 
+*/
+
 
 bst::~bst()
 {
@@ -23,6 +29,7 @@ void bst::destroy(Node* r)
 		delete r; 
 	}
 }
+/* //function was retried recursively 
 bool bst::present(Item target)
 {
 	Node* p; 
@@ -38,7 +45,7 @@ bool bst::present(Item target)
 		else						//target is > p->data and we must explore right path 
 			p = p->right;
 	}
-}
+}*/
 void bst::insert(Item entry)		//iterative version of insert
 {
 	Node* ptr = root;	//traveling pointer to find value	
@@ -103,7 +110,7 @@ void bst::removeNode(Node*& t)			//third function needed to remove a node (remov
 			t = t->left;	//advance t to pointing around target
 			delete ptr;		//delete target 
 		}
-		else //has both children; we will ifnd leftmost node in right tree
+		else //has both children; we will find leftmost node in right tree
 		{
 			back = t; 
 			ptr = t->right;		//aim down right branch
@@ -167,4 +174,16 @@ bst::Node* bst::rCopy(Node* r)
 		temp->right = rCopy(r->right); //move down the right branch
 		return temp; 
 	}
+}
+
+bool bst::rPresent(Item target, Node* r)
+{
+	if (r == NULL)	//not found
+		return false;
+	else if (target < r->data)
+		rPresent(target, r->left);
+	else if (target > r->data)
+		rPresent(target, r->right);
+	else
+		return true; 
 }

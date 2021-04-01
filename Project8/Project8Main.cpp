@@ -1,4 +1,4 @@
-//This is the main file to test our ordered list class
+//This is the main file to test our Binary Search Tree
 //it consists of a menu function used to test the features of our linked list class
 
 #include <iostream>		//provides ostream
@@ -48,8 +48,8 @@ int main()
 		case 'R': RemoveValue(); break;
 		case 'p':
 		case 'P': IsValuePresent(); break;
-		case 'k':
-		case 'K': ReportValue(); break;
+		//case 'k':
+		//case 'K': ReportValue(); break;
 		case 'w':
 		case 'W': PrintList(); break;
 		case 'm':
@@ -74,7 +74,7 @@ void PrintMenu()
 	cout << "r v -- Remove the value v from the list." << endl;
 	cout << "l -- Report the length of the list." << endl;
 	cout << "p v -- Is the value v present in the list?" << endl;
-	cout << "k n -- Report the nth value of the list." << endl;
+	//cout << "k n -- Report the nth value of the list." << endl;
 	cout << "w -- Write out the list." << endl;
 	cout << "m -- see this menu." << endl;
 	cout << "q -- quit" << endl;
