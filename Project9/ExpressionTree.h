@@ -4,6 +4,7 @@
 //Class Provided: ExpressionTree
 
 #include <iostream>
+#include <cstring>
 
 
 #ifndef EXPTREE
@@ -19,7 +20,7 @@ public:
 	~ExpTree(); 
 	//Postcondition: Returns nodes
 	
-	void build(std::istream& infile); 
+	void build(std::istream& infile);
 
 	
 	void prefix(std::ostream& outfile);	//writes a prefix expression

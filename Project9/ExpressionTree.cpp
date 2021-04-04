@@ -15,14 +15,6 @@
 
 
 
-
-
-
-
-
-
-
-
 //default destructor 
 ExpTree::~ExpTree()
 {
@@ -47,13 +39,13 @@ void ExpTree::postfix(std::ostream& outfile)
 {
 	return printPostfix(outfile, root);
 }
-int ExpTree::value(); //returns value of the expression 
+int ExpTree::value() //returns value of the expression 
 {
 	return findValue(root);
 }
 void ExpTree::destroy(Node* root) //Used to give back nodes
 {
-	if (r != NULL) //if there are children that need to be deleted
+	if (root != NULL) //if there are children that need to be deleted
 	{	
 		destroy(root->left);	//delete left branch
 		destroy(root->right);	//delete right branch
@@ -62,23 +54,23 @@ void ExpTree::destroy(Node* root) //Used to give back nodes
 }
 ExpTree::Node* ExpTree::helpBuild(std::istream& infile)
 {
-	char ch; 
-	Node* temp; 
+	char ch;
+	Node* temp;
 
 	infile >> ch; //read character
 	if (isdigit(ch))		//base case --> character read is a digit
 	{
-		temp = new Node; 
+		temp = new Node;
 		temp->operand = ch - '0';  //using subtract ascii value 0 trick to store ch as an integer value 
-		temp->left = NULL; 
-		temp->right = NULL; 
+		temp->left = NULL;
+		temp->right = NULL;
 	}
 	else // ch is '('	--> start of a subexpression only has choices betwee ( or a digit 
 	{
-		temp = new Node; 
+		temp = new Node;
 		temp->left = helpBuild(infile);
-		infile >> temp->optr; 
-		temp->right = helpBuild(infile); 
+		infile >> temp->optr;
+		temp->right = helpBuild(infile);
 		infile >> ch; // ')' 
 	}
 	return temp;
@@ -90,8 +82,8 @@ void ExpTree::printPrefix(std::ostream& outfile, Node* r)	//preorder traversal
 	else
 	{
 		outfile << r->optr << ' ';	//prefix   start by printing operator 
-		prefix(r->left);
-		prefix(r->right);
+		printPrefix(outfile, r->left);
+		printPrefix(outfile, r->right);
 	}
 }
 void ExpTree::printInfix(std::ostream& outfile, Node* r)
@@ -100,11 +92,11 @@ void ExpTree::printInfix(std::ostream& outfile, Node* r)
 		outfile << r->operand << ' ';
 	else
 	{
-		outfile << '( '; //fully parenethisized infix, so add left paren
-		prefix(r->left);
+		outfile << "( "; //fully parenethisized infix, so add left paren
+		printInfix(outfile, r->left);
 		outfile << r->optr << ' ';	//infix   place optr in the middle 
-		prefix(r->right);
-		outfile << ') '; //fully parenethisized infix, so add right paren
+		printInfix(outfile, r->right);
+		outfile << ") "; //fully parenethisized infix, so add right paren
 	}
 }
 void ExpTree::printPostfix(std::ostream& outfile, Node* r)
@@ -113,8 +105,8 @@ void ExpTree::printPostfix(std::ostream& outfile, Node* r)
 		outfile << r->operand << ' ';
 	else
 	{ 
-		prefix(r->left);
-		prefix(r->right);
+		printPostfix(outfile, r->left);
+		printPostfix(outfile, r->right);
 		outfile << r->optr << ' ';	//postfix   end with printing operator
 	}
 }
