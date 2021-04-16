@@ -19,7 +19,7 @@ void OpenInputFile(std::ifstream& in_f); //for opening a file
 void printRecord(Record A[], int size); //for printing the contents of an array of Records in format: 'Vertex1 Vertex2 EdgeCost \n' 
 void heapSort(Record A[], int size);
 void reheapDown(Record A[], int root, int last);
-
+int kruskal(Record sorted[], Partition tree, int edges);
 
 int main()
 {
@@ -29,37 +29,28 @@ int main()
 
     int verticesCount; infile >> verticesCount; //read the first character in the input file to get the count for number of vertices in the file 
     int maxEdges = (verticesCount * (verticesCount - 1)) / 2; // max edges is  [v * (v-1)]/2 
-    //TEST: 
-    //std::cout << verticesCount; 
-    // \test
-    
-
-
-        
+         
     Record* graph = new Record[maxEdges];      //create an array of records for holding the values of the graph
     
     int index = 0; int edgeCount = 0;           //variable for the while loop index, and a new variable to find how many edges were in the files graph 
     while(index < maxEdges && !infile.eof())    //Loop to store values in the input file into the Record array named graph
     {
         //getLine 
-        infile >> graph[index].vertex1;
-        infile >> graph[index].vertex2;
-        infile >> graph[index].edgeCost;
-        ++index; 
-        ++edgeCount; 
+        infile >> graph[index].vertex1;         //save vertex 1
+        infile >> graph[index].vertex2;         //save vertex 2
+        infile >> graph[index].edgeCost;        //save the cost of their connection
+        ++index;                                //move to the next line
+        ++edgeCount;                            //keep track of edges (lines) counted in the file 
     }
     
-    //TEST: 
-    //std::cout << graph[0].vertex1 << ' ' << graph[0].vertex2 << ' ' << graph[0].edgeCost <<'\n'; 
-    // \Test
-
-
-    //for (int i = 0; i < edgeCount; i++)     //a loop to print the raw graph 
-       // std::cout << graph[i].vertex1 << ' ' << graph[i].vertex2 << ' ' << graph[i].edgeCost << '\n';
-    heapSort(graph, edgeCount);         //sort the array by edge costs
-    printRecord(graph, edgeCount);
+    heapSort(graph, edgeCount);                 //sort the array by edge costs
+    //printRecord(graph, edgeCount);
+    Partition MST; //create a partition to store our MST 
+    std::cout << "Minimum Spanning Tree: \n";
+    int totalCost = kruskal(graph, MST, verticesCount);  //totalCost will keep track of the expense to navigate the MST 
+    std::cout << "Total Cost: " << totalCost; 
     
-    delete []graph; 
+    delete []graph;     //return Record array graph
     return EXIT_SUCCESS; 
 }
 
@@ -118,4 +109,39 @@ void reheapDown(Record A[], int root, int last)
             done = true;
 
     }
+}
+
+int kruskal(Record sorted[], Partition tree, int vertices)
+{
+    //Pseudo Code as basis for algorithm
+    /*
+    While(| T | < n - 1)         //size of tree less than n-1
+    {
+        E = next edge on the list;
+        If(e connects two different components)
+        {
+            T, --TV{ e }; //add e to T
+            Join the components e connects into one
+        }
+    }
+    Return T :
+    */
+
+    int edgesAdded = 0; //variable for holding edges added to the MST 
+    int nextEdge;       //variable for holding the value of the next edge
+    int sortedIndex = 0; //index for the Record array
+    int cost = 0; //value for holding the total spanning cost
+    while (edgesAdded < vertices - 1)
+    {
+        nextEdge = sorted[sortedIndex].edgeCost; 
+        if (tree.uf_find(sorted[sortedIndex].vertex1) != tree.uf_find(sorted[sortedIndex].vertex2) || tree.uf_find(sorted[sortedIndex].vertex2) != tree.uf_find(sorted[sortedIndex].vertex1))
+        {
+            tree.uf_union(sorted[sortedIndex].vertex1, sorted[sortedIndex].vertex2);
+            ++edgesAdded;                           //keep track of edges added 
+            cost += sorted[sortedIndex].edgeCost;   //add edge connection to the total spanning cost 
+            std::cout << "Edge = (v" << sorted[sortedIndex].vertex1 << ",v" << sorted[sortedIndex].vertex2 << "); cost = " << sorted[sortedIndex].edgeCost << "\n";  //Print the addition of the edge connection to the MST 
+        }
+        ++sortedIndex; 
+    }
+    return cost; 
 }
