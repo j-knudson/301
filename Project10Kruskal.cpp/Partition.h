@@ -17,9 +17,9 @@ class Partition
 	
 		//Member Functions
 		int uf_find(int x); 
+		//Postcondition: The root of element x is returned; x is made a direct child to its root  
 		void uf_union(int x, int y); 
-		//Precondition: x and y are not in the same partition tree
-
+		//Postcondition: Subtrees x and y are compared and the smaller of the two is made a subtree to the larger
 	private: 
 		//Data Member --> The array of partitions 
 		int partArr[VERTICES]; 
