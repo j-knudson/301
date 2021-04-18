@@ -9,7 +9,7 @@ class Partition
 {
 	public: 
 		//Member Constant 
-		static const int VERTICES = 42; //this can be any number; it is the possible number of vertices in the spanning tree
+		static const int VERTICES = 42+8; //this can be any number; it is the possible number of vertices in the spanning tree
 		
 	
 		//Default Constructor
