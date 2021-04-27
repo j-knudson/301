@@ -78,6 +78,10 @@ int main()
     return EXIT_SUCCESS;
 }
 
+//******************************************************//
+// ------- Function Definitions ---------// 
+
+
 void OpenInputFile(std::ifstream& in_f)    //function to open an input file
 {
     std::string input_filename;              //filename to be opened stored as string
