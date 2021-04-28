@@ -9,11 +9,18 @@
 void OpenInputFile(std::ifstream& in_f); //for opening a file 
 //Postcondition: A file stream has been opened for input 
 void PrintGraph(double* graph[], int size);
-
+//Precondition: the graph is an array of arrays representing a square n x n matrix
+//Postcondition: Then contents of the graph were printed to the terminal
 void floyd(double* graph[], double* results[], double* path[], int size);
-
+//Precondition: all three arrays are arrays of arrays representing a square n x n matrix
+//Postcondition: the shortest path was calculated between all pairs of vertices represented by the matrix graph; 
+    //the path weights are stored in results and the route is stored in path
 void path(double* p[], int vertex1, int vertex2);
+//Precondition: the graph p is an array of arrays representing a square n x n matrix
+//Postcondition: the intermediate vertices on a connecting route was printed to the terminal 
 void GetVertices(double* p[]);
+//Precondition: the graph p is an array of arrays representing a square n x n matrix
+//Postcondition: the user was prompted to input vertices and the shortest path between them was printed to the terminal 
 
 int main()
 {
@@ -54,7 +61,7 @@ int main()
         }
     std::cout << "Here is the initial data: \n";
     PrintGraph(adjacencyMatrix, verticesCount); 
-    std::cout << "Calling Floyd's algorithm and printing resuts: \n";
+    std::cout << "Calling Floyd's algorithm and printing results: \n";
     floyd(adjacencyMatrix, resultsMatrix, shortestPathMatrix, verticesCount);  //call floyds to update shortestPathMatrix 
     PrintGraph(resultsMatrix, verticesCount);              //print results of shortestPathMatrix
     
@@ -72,6 +79,7 @@ int main()
         delete[] resultsMatrix[i]; //delete columns
         delete[] shortestPathMatrix[i]; //delete columns
     }
+  
     delete[] adjacencyMatrix; 
     delete[] resultsMatrix; 
     delete[] shortestPathMatrix;
@@ -95,7 +103,11 @@ void OpenInputFile(std::ifstream& in_f)    //function to open an input file
 }
 void PrintGraph(double* graph[], int size)
 {
-    
+    for (int i = 0; i < size; ++i)
+        std::cout << " _ _ ";
+    std::cout << '\n'; 
+    std::cout << '\n';
+
     for (int m = 0; m < size; ++m)         //for rows of m x n matrix   (square matrix so they are the same)           
     {
         for (int n = 0; n < size; ++n)     //for columns of m x n matrix 
@@ -104,6 +116,7 @@ void PrintGraph(double* graph[], int size)
         }
         std::cout << '\n';
     }
+    std::cout << '\n';
 }
 
 
@@ -139,7 +152,7 @@ void path(double* p[], int vertex1, int vertex2)
 
 void GetVertices(double* p[])
 {
-    std::cout << "Enter two vertex numbers or '-1' to quit: \n";
+    std::cout << "Enter two vertex numbers for the path between them or '-1' to quit: \n";
     int v1, v2, userVert; 
     std::cin >> userVert; 
     while (userVert != -1)
