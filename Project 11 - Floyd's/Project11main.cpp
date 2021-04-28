@@ -125,15 +125,15 @@ void floyd(double* graph[], double* results[], double* path[], int size)
     int i, j, k;  //vertex numbers and loop indices  
     for (i = 0; i < size; ++i)             //this copies original graph matrix into results matrix starting at vertex 0
         for (j = 0; j < size; ++j)
-            results[i][j] = graph[i][j];
+            results[i][j] = graph[i][j];        //results is now updated with the initial values of the adjacency matrix in graph 
     
-    for (k = 0; k < size; ++k)             
-        for (i = 0; i < size; ++i)
-            for (j = 0; j < size; ++j)
-                if (results[i][k] + results[k][j] < results[i][j])
+    for (k = 0; k < size; ++k)            //We need to build the predecessor n-1 times; predecessor is updated results matrix using new intermediate vertex               
+        for (i = 0; i < size; ++i)              //loop for rows  (m) 
+            for (j = 0; j < size; ++j)               //loop for columns (n)
+                if (results[i][k] + results[k][j] < results[i][j])  //check if path through intermediate vertex (K) is better than current path ([i][j])
                 {
-                    results[i][j] = results[i][k] + results[k][j];
-                    path[i][j] = k;
+                    results[i][j] = results[i][k] + results[k][j];  //if the intermediate path is better update matrix to new weight ([i][k]+[k][j])
+                    path[i][j] = k;                             //this is our shortest path matrix showing the route; update it to include the intermediate vertex
                 }
 }
 
